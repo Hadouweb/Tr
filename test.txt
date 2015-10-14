@@ -1,241 +1,482 @@
-This is a top-down isometric style shooter game
-You are a boy who is
-having a dream that all of his toys have come to life.
-You run around, you shoot zombie teddies and other things,
-score points and eventually meet your demise.
-So that's what we're going to make
-and we're going to be learning about the editor
-from putting together a scene
-implementing animated characters, AI,
-some of the new UI and lots of other stuff.
-It's a very uplifting game,
-you can't win, you can only eventually lose.
-So that's the way we prefer to make them.
-The very first thing you'll notice is that on my screen
-I have the project open.
-We don't want you to have the project open
-at all, what we want you to do is to
-make your own new scene and we're going to
-put this project together.
-So if anyone has got the scene open
-we don't want you to do that, we want you to make
-a brand new scene.
-So first of all we're going to go to File - New Scene.
-Then what we want you guys to do, to make sure that
-everyone's kind of on the same page we're going to ask
-you to setup the editor in the same
-style that we have.
-If you're comfortable with Unity, if you've used Unity before
-and you prefer to work in your layout
-of the editor that's totally cool, you can keep that.
-But if you're new to Unity what we'd like you to do
-is to choose the layout menu in the upper right
-and choose 2 by 3.
-So layout drop down in the upper right and choose 2 by 3.
-That would get you a style that gets you something like this.
-Then what we'd like you to do is to drag the project panel
-and drop it below the hierarchy.
-You'll note that when you drag the title tabs
-of the panels around they will dock
-in to different spaces.
-Drop that below the hierarchy
-and then you can just drag up the division between those two,
-maybe drag this over a little
-and then you should be all set.
-So hopefully everyone's got a view like that?
-Then what I usually like to do is
-with the project panel, because we don't really need
-to use the thumbnails particularly
-there's a slider at the bottom
-which will change to list view when dragged
-all the way over to the left.
-So if we drag it over to the left you're going to see
-exactly the same as what I have
-on my screen here.
-We are working with Unity 4.6
-but right now what we'd like you to do is to go to
-File - Save Scene As
-and we will ask you to put this in
-to the Scenes folder.
-We don't want you to use the completed
-assets version of anything
-just use the
-Scenes folder that's in the
-root of the project.
-And we're going to call this Level 01.
-So save it as Level 01 in the Scenes folder.
-When you've done that successfully you should see the name of
-your scene up at the top of the interface.
-Okay so the next thing we're going to do is
-setup the environment, so I'm just going to show you that first.
-So a prefab, just to reiterate
-how this stuff works, a prefab is our way of
-providing or saving a game object
-in to the project.
-You can do that for a number of different reasons
-and we'll be saving prefabs in order to
-spawn them in to the game later with the enemies.
-But for the purpose of the environment
-we prepared the model
-and a number of collider and other elements.
-If you look in the prefabs folder you will
-find a prefab called environment.
-Prefabs are represented by this blue cube icon.
-All you need to do is to drag and drop that up
-in to the hierarchy.
-So just to remind you, the hierarchy and the scene
-are intrinsically linked, anything that's in the scene
-is therefore in the hierarchy and visa versa.
-Just make sure that you've got a decent view of this level.
-You can use the hand tool of course
-up in the upper left
-and use Control to zoom in and out
-and Alt to rotate around.
-We don't need to worry too much about the view
-that you're looking at in the scene view
-because we're going to setup the camera to look at
-particular part of that later.
-What we're just going to check is that we
-positioned the environment at the origin.
-So with the environment selected in the transform
-component you should see the position is at
-(0, 0, 0).
-If it's not just fill that in, (0, 0, 0)
-or go to the cog icon in the
-upper right and choose Reset Position.
-Then once we've done that we are also going to drag
-in the Lights prefab.
-Lights is in the prefabs folder,
-you simply need to drag that in to
-the scene and it should light your scene.
-With the lights we don't need to worry about
-positioning particularly because it's directional lights.
-With directional lights you only need to worry about the rotation.
-So if I just show you those briefly you can see that these
-directional lights are pointing in
-certain rotations and they're going to affect
-anything in the scene, you don't need to worry about
-where they're positioned.
-The way this game is going to work is
-we're going to have a camera that's
-looking down on the scene.
-And what we need to do in order to track
-the player around and also to be able to
-shoot is to use something called
-a ray cast which is going to create an
-invisible line from the camera to the floor.
-But we've got a very inconsistent floor,
-we've got a number of different environment objects
-such as these stools, the Lego bricks,
-the broken train
-and all these different things, so we don't want to worry about
-ray casting on to those at different heights
-so to make things a lot simpler
-what we're doing is we're going to add
-in a plane quad.
-So what I'd like you guys to do is to go to Game Object
-3D Object and Quad.
-What you'll notice is this creates a very small
-1 by 1 quad right in the centre
-of your game.
-We're going to reset that to (0,0,0)
-in the transform component
-so make sure the position of your quad is at 0.
-And we're going to rotate it by
-90 degrees in the X axis.
-Finally we want this to cover the entire
-game level so we're going to
-scale this by 100 in X
-and 100 in Y.
-We're going to name this Floor.
-So rename from quad
-to Floor.
-So the next thing we're going to do is
-to make this invisible, obviously you'll notice that it looks
-pretty horrendous right now.
-We don't want to actually see this.
-What we want to do is use the collider,
-so the outline of this shape.
-We don't want to use this kind of grey for any reason at all.
-So a quad is made visible by the
-mesh renderer component,
-and because we don't want that we're just going to
-go ahead and remove it so with the floor selected
-click the cog to the right of the mesh renderer
-and choose Remove Component.
-So with your floor selected go to
-the cog icon in the upper right and choose
-Remove Component and you should see
-that you can then only see the collider outline.
-Make sure you remove the mesh renderer,
-not the mesh filter or the mesh collider.
-Remember you've got Undo if anything goes horrendously wrong
-but you should then see that you just have the collider around
-the outline of the level, something like that.
-Then because we don't want
-our ray cast to check for anything
-but this quad we're going to use layers.
-so a layer is a way of isolating
-things like ray casting or lighting for example,
-to a particular group.
-So with the floor selected
-if you click the Layer drop down you should see
-that we have a floor layer ready for you.
-Choose from the Layer drop down at the top of the
-the inspector, Floor.
-And then save your scene.
-The next thing we're going to do is finish off
-our environment by adding some background music.
-With sound sources in Unity we can attach
-them to any object, it's a component that you
-use to apply a clip to or you
-use scripting to assign clips to.
-We are going to have a separate game
-object just to keep things separate and just to
-keep them nicely organised.
-So I'd like you to go to Game Object - Create Empty
-and then rename this Background Music.
-Return on the Mac or F2 on the PC
-just like your operating system
-and rename this Background Music
-So we're creating an empty and renaming it Background Music.
-Then we can add components to our game objects
-to make them do different things.
-So we have a component menu up at the top
-with a bunch of different categories of things
-that you can do to your game object to give it different
-behaviour of different functionality.
-What we're going to add is an audio source
-so we can use this component menu
-or we can use the Add Component menu
-over on the right in the inspector.
-So because the inspector will show you properties of the
-game object currently selected we can
-go in to here and we want to add an Audio
-Audio Source
-We don't really want to hear the music
-for this game playing
-every time you press play in your game
-but just to make sure that everyone's worked
-we are going to do it once.
-So to assign a audio clip
-to the audio source we can use the circle select.
-We're going to refer to circle select a lot throughout
-the day, it's the small nipple-like icon
-to the right of the audio clip, and what that will do is pop up
-a context window which is going to allow you to
-find the file you need.
-The file you need is Background Music,
-surprisingly enough, and simply closing that window
-will assign it to that.
-For everyone's sanity uncheck Play On Awake.
-We also want the music to loop when we are finished
-with the game, we do want it to loop
-so uncheck Play On Awake and check Loop.
-In the volume in the component there is a slider.
-And we can just drag that down to about 0.1.
-So that's just to balance it with the other sound effects
-we have in the game, and then you can go ahead and
-save your scene once more.
-That's the end of phase one, setting up the environment.
+00:04 - 00:08[END]
+This is a top-down isometric style shooter game[END]
+00:08 - 00:10[END]
+You are a boy who is[END]
+00:10 - 00:13[END]
+having a dream that all of his toys have come to life.[END]
+00:14 - 00:18[END]
+You run around, you shoot zombie teddies and other things,[END]
+00:19 - 00:23[END]
+score points and eventually meet your demise.[END]
+00:24 - 00:25[END]
+So that's what we're going to make[END]
+00:25 - 00:29[END]
+and we're going to be learning about the editor[END]
+00:29 - 00:31[END]
+from putting together a scene[END]
+00:31 - 00:34[END]
+implementing animated characters, AI,[END]
+00:35 - 00:39[END]
+some of the new UI and lots of other stuff.[END]
+00:39 - 00:40[END]
+It's a very uplifting game,[END]
+00:40 - 00:42[END]
+you can't win, you can only eventually lose.[END]
+00:42 - 00:45[END]
+So that's the way we prefer to make them.[END]
+00:45 - 00:49[END]
+The very first thing you'll notice is that on my screen[END]
+00:49 - 00:52[END]
+I have the project open.[END]
+00:52 - 00:54[END]
+We don't want you to have the project open[END]
+00:54 - 00:56[END]
+at all, what we want you to do is to[END]
+00:56 - 00:58[END]
+make your own new scene and we're going to[END]
+00:58 - 00:59[END]
+put this project together.[END]
+00:59 - 01:02[END]
+So if anyone has got the scene open[END]
+01:02 - 01:04[END]
+we don't want you to do that, we want you to make[END]
+01:04 - 01:06[END]
+a brand new scene.[END]
+01:06 - 01:08[END]
+So first of all we're going to go to File - New Scene.[END]
+01:08 - 01:10[END]
+Then what we want you guys to do, to make sure that[END]
+01:10 - 01:12[END]
+everyone's kind of on the same page we're going to ask[END]
+01:12 - 01:14[END]
+you to setup the editor in the same[END]
+01:14 - 01:16[END]
+style that we have.[END]
+01:16 - 01:18[END]
+If you're comfortable with Unity, if you've used Unity before[END]
+01:18 - 01:20[END]
+and you prefer to work in your layout[END]
+01:20 - 01:23[END]
+of the editor that's totally cool, you can keep that.[END]
+01:23 - 01:25[END]
+But if you're new to Unity what we'd like you to do[END]
+01:25 - 01:28[END]
+is to choose the layout menu in the upper right[END]
+01:29 - 01:31[END]
+and choose 2 by 3.[END]
+01:32 - 01:35[END]
+So layout drop down in the upper right and choose 2 by 3.[END]
+01:35 - 01:38[END]
+That would get you a style that gets you something like this.[END]
+01:38 - 01:41[END]
+Then what we'd like you to do is to drag the project panel[END]
+01:41 - 01:43[END]
+and drop it below the hierarchy.[END]
+01:43 - 01:45[END]
+You'll note that when you drag the title tabs[END]
+01:45 - 01:47[END]
+of the panels around they will dock[END]
+01:47 - 01:48[END]
+in to different spaces.[END]
+01:48 - 01:50[END]
+Drop that below the hierarchy[END]
+01:50 - 01:53[END]
+and then you can just drag up the division between those two,[END]
+01:53 - 01:55[END]
+maybe drag this over a little[END]
+01:55 - 01:57[END]
+and then you should be all set.[END]
+01:57 - 01:59[END]
+So hopefully everyone's got a view like that?[END]
+01:59 - 02:01[END]
+Then what I usually like to do is[END]
+02:01 - 02:03[END]
+with the project panel, because we don't really need[END]
+02:03 - 02:06[END]
+to use the thumbnails particularly[END]
+02:06 - 02:08[END]
+there's a slider at the bottom[END]
+02:08 - 02:10[END]
+which will change to list view when dragged[END]
+02:10 - 02:12[END]
+all the way over to the left.[END]
+02:13 - 02:15[END]
+So if we drag it over to the left you're going to see[END]
+02:15 - 02:17[END]
+exactly the same as what I have[END]
+02:17 - 02:19[END]
+on my screen here.[END]
+02:19 - 02:22[END]
+We are working with Unity 4.6[END]
+02:22 - 02:23[END]
+but right now what we'd like you to do is to go to[END]
+02:23 - 02:25[END]
+File - Save Scene As[END]
+02:25 - 02:27[END]
+and we will ask you to put this in[END]
+02:27 - 02:29[END]
+to the Scenes folder.[END]
+02:29 - 02:31[END]
+We don't want you to use the completed[END]
+02:31 - 02:33[END]
+assets version of anything[END]
+02:33 - 02:35[END]
+just use the[END]
+02:35 - 02:37[END]
+Scenes folder that's in the[END]
+02:37 - 02:39[END]
+root of the project.[END]
+02:39 - 02:42[END]
+And we're going to call this Level 01.[END]
+02:44 - 02:47[END]
+So save it as Level 01 in the Scenes folder.[END]
+02:49 - 02:51[END]
+When you've done that successfully you should see the name of[END]
+02:51 - 02:54[END]
+your scene up at the top of the interface.[END]
+02:54 - 02:56[END]
+Okay so the next thing we're going to do is[END]
+02:56 - 02:59[END]
+setup the environment, so I'm just going to show you that first.[END]
+03:00 - 03:02[END]
+So a prefab, just to reiterate[END]
+03:02 - 03:04[END]
+how this stuff works, a prefab is our way of[END]
+03:04 - 03:07[END]
+providing or saving a game object[END]
+03:07 - 03:08[END]
+in to the project.[END]
+03:08 - 03:10[END]
+You can do that for a number of different reasons[END]
+03:10 - 03:13[END]
+and we'll be saving prefabs in order to[END]
+03:13 - 03:15[END]
+spawn them in to the game later with the enemies.[END]
+03:15 - 03:17[END]
+But for the purpose of the environment[END]
+03:17 - 03:19[END]
+we prepared the model[END]
+03:19 - 03:22[END]
+and a number of collider and other elements.[END]
+03:22 - 03:24[END]
+If you look in the prefabs folder you will[END]
+03:24 - 03:26[END]
+find a prefab called environment.[END]
+03:26 - 03:29[END]
+Prefabs are represented by this blue cube icon.[END]
+03:30 - 03:32[END]
+All you need to do is to drag and drop that up[END]
+03:32 - 03:34[END]
+in to the hierarchy.[END]
+03:34 - 03:36[END]
+So just to remind you, the hierarchy and the scene[END]
+03:36 - 03:40[END]
+are intrinsically linked, anything that's in the scene[END]
+03:40 - 03:43[END]
+is therefore in the hierarchy and visa versa.[END]
+03:44 - 03:47[END]
+Just make sure that you've got a decent view of this level.[END]
+03:47 - 03:48[END]
+You can use the hand tool of course[END]
+03:48 - 03:50[END]
+up in the upper left[END]
+03:50 - 03:52[END]
+and use Control to zoom in and out[END]
+03:52 - 03:55[END]
+and Alt to rotate around.[END]
+03:55 - 03:57[END]
+We don't need to worry too much about the view[END]
+03:57 - 03:59[END]
+that you're looking at in the scene view[END]
+03:59 - 04:01[END]
+because we're going to setup the camera to look at[END]
+04:01 - 04:02[END]
+particular part of that later.[END]
+04:02 - 04:04[END]
+What we're just going to check is that we[END]
+04:04 - 04:07[END]
+positioned the environment at the origin.[END]
+04:07 - 04:09[END]
+So with the environment selected in the transform[END]
+04:09 - 04:11[END]
+component you should see the position is at[END]
+04:11 - 04:13[END]
+(0, 0, 0).[END]
+04:13 - 04:16[END]
+If it's not just fill that in, (0, 0, 0)[END]
+04:16 - 04:18[END]
+or go to the cog icon in the[END]
+04:18 - 04:21[END]
+upper right and choose Reset Position.[END]
+04:22 - 04:24[END]
+Then once we've done that we are also going to drag[END]
+04:24 - 04:27[END]
+in the Lights prefab.[END]
+04:27 - 04:30[END]
+Lights is in the prefabs folder,[END]
+04:30 - 04:32[END]
+you simply need to drag that in to[END]
+04:32 - 04:35[END]
+the scene and it should light your scene.[END]
+04:35 - 04:37[END]
+With the lights we don't need to worry about[END]
+04:37 - 04:40[END]
+positioning particularly because it's directional lights.[END]
+04:40 - 04:43[END]
+With directional lights you only need to worry about the rotation.[END]
+04:43 - 04:45[END]
+So if I just show you those briefly you can see that these[END]
+04:45 - 04:47[END]
+directional lights are pointing in[END]
+04:47 - 04:50[END]
+certain rotations and they're going to affect[END]
+04:50 - 04:52[END]
+anything in the scene, you don't need to worry about[END]
+04:52 - 04:54[END]
+where they're positioned.[END]
+04:54 - 04:56[END]
+The way this game is going to work is[END]
+04:56 - 04:58[END]
+we're going to have a camera that's[END]
+04:58 - 05:00[END]
+looking down on the scene.[END]
+05:00 - 05:02[END]
+And what we need to do in order to track[END]
+05:02 - 05:04[END]
+the player around and also to be able to[END]
+05:04 - 05:06[END]
+shoot is to use something called[END]
+05:06 - 05:08[END]
+a ray cast which is going to create an[END]
+05:08 - 05:11[END]
+invisible line from the camera to the floor.[END]
+05:11 - 05:13[END]
+But we've got a very inconsistent floor,[END]
+05:13 - 05:16[END]
+we've got a number of different environment objects[END]
+05:16 - 05:19[END]
+such as these stools, the Lego bricks,[END]
+05:19 - 05:21[END]
+the broken train[END]
+05:21 - 05:24[END]
+and all these different things, so we don't want to worry about[END]
+05:24 - 05:26[END]
+ray casting on to those at different heights[END]
+05:26 - 05:28[END]
+so to make things a lot simpler[END]
+05:28 - 05:30[END]
+what we're doing is we're going to add[END]
+05:30 - 05:32[END]
+in a plane quad.[END]
+05:32 - 05:34[END]
+So what I'd like you guys to do is to go to Game Object[END]
+05:34 - 05:37[END]
+3D Object and Quad.[END]
+05:40 - 05:42[END]
+What you'll notice is this creates a very small[END]
+05:42 - 05:45[END]
+1 by 1 quad right in the centre[END]
+05:45 - 05:47[END]
+of your game.[END]
+05:47 - 05:50[END]
+We're going to reset that to (0,0,0)[END]
+05:51 - 05:53[END]
+in the transform component[END]
+05:53 - 05:56[END]
+so make sure the position of your quad is at 0.[END]
+05:59 - 06:01[END]
+And we're going to rotate it by[END]
+06:01 - 06:03[END]
+90 degrees in the X axis.[END]
+06:05 - 06:07[END]
+Finally we want this to cover the entire[END]
+06:07 - 06:09[END]
+game level so we're going to[END]
+06:09 - 06:11[END]
+scale this by 100 in X[END]
+06:11 - 06:13[END]
+and 100 in Y.[END]
+06:13 - 06:15[END]
+We're going to name this Floor.[END]
+06:16 - 06:19[END]
+So rename from quad[END]
+06:20 - 06:21[END]
+to Floor.[END]
+06:22 - 06:24[END]
+So the next thing we're going to do is[END]
+06:24 - 06:26[END]
+to make this invisible, obviously you'll notice that it looks[END]
+06:26 - 06:28[END]
+pretty horrendous right now.[END]
+06:28 - 06:30[END]
+We don't want to actually see this.[END]
+06:30 - 06:32[END]
+What we want to do is use the collider,[END]
+06:32 - 06:34[END]
+so the outline of this shape.[END]
+06:34 - 06:38[END]
+We don't want to use this kind of grey for any reason at all.[END]
+06:38 - 06:40[END]
+So a quad is made visible by the[END]
+06:40 - 06:42[END]
+mesh renderer component,[END]
+06:42 - 06:44[END]
+and because we don't want that we're just going to[END]
+06:44 - 06:47[END]
+go ahead and remove it so with the floor selected[END]
+06:48 - 06:50[END]
+click the cog to the right of the mesh renderer[END]
+06:50 - 06:52[END]
+and choose Remove Component.[END]
+06:53 - 06:55[END]
+So with your floor selected go to[END]
+06:55 - 06:57[END]
+the cog icon in the upper right and choose[END]
+06:57 - 06:59[END]
+Remove Component and you should see[END]
+06:59 - 07:02[END]
+that you can then only see the collider outline.[END]
+07:02 - 07:04[END]
+Make sure you remove the mesh renderer,[END]
+07:04 - 07:07[END]
+not the mesh filter or the mesh collider.[END]
+07:07 - 07:11[END]
+Remember you've got Undo if anything goes horrendously wrong[END]
+07:11 - 07:14[END]
+but you should then see that you just have the collider around[END]
+07:14 - 07:16[END]
+the outline of the level, something like that.[END]
+07:17 - 07:19[END]
+Then because we don't want[END]
+07:19 - 07:21[END]
+our ray cast to check for anything[END]
+07:21 - 07:24[END]
+but this quad we're going to use layers.[END]
+07:24 - 07:26[END]
+so a layer is a way of isolating[END]
+07:26 - 07:30[END]
+things like ray casting or lighting for example,[END]
+07:30 - 07:32[END]
+to a particular group.[END]
+07:32 - 07:34[END]
+So with the floor selected[END]
+07:34 - 07:36[END]
+if you click the Layer drop down you should see[END]
+07:36 - 07:40[END]
+that we have a floor layer ready for you.[END]
+07:40 - 07:42[END]
+Choose from the Layer drop down at the top of the[END]
+07:42 - 07:44[END]
+the inspector, Floor.[END]
+07:46 - 07:48[END]
+And then save your scene.[END]
+07:48 - 07:50[END]
+The next thing we're going to do is finish off[END]
+07:50 - 07:54[END]
+our environment by adding some background music.[END]
+07:54 - 07:56[END]
+With sound sources in Unity we can attach[END]
+07:56 - 07:58[END]
+them to any object, it's a component that you[END]
+07:58 - 08:00[END]
+use to apply a clip to or you[END]
+08:00 - 08:03[END]
+use scripting to assign clips to.[END]
+08:03 - 08:05[END]
+We are going to have a separate game[END]
+08:05 - 08:07[END]
+object just to keep things separate and just to[END]
+08:07 - 08:08[END]
+keep them nicely organised.[END]
+08:08 - 08:11[END]
+So I'd like you to go to Game Object - Create Empty[END]
+08:13 - 08:15[END]
+and then rename this Background Music.[END]
+08:17 - 08:19[END]
+Return on the Mac or F2 on the PC[END]
+08:19 - 08:21[END]
+just like your operating system[END]
+08:21 - 08:23[END]
+and rename this Background Music[END]
+08:23 - 08:27[END]
+So we're creating an empty and renaming it Background Music.[END]
+08:27 - 08:30[END]
+Then we can add components to our game objects[END]
+08:30 - 08:32[END]
+to make them do different things.[END]
+08:32 - 08:35[END]
+So we have a component menu up at the top[END]
+08:35 - 08:37[END]
+with a bunch of different categories of things[END]
+08:37 - 08:39[END]
+that you can do to your game object to give it different[END]
+08:39 - 08:42[END]
+behaviour of different functionality.[END]
+08:42 - 08:44[END]
+What we're going to add is an audio source[END]
+08:44 - 08:46[END]
+so we can use this component menu[END]
+08:46 - 08:49[END]
+or we can use the Add Component menu[END]
+08:49 - 08:51[END]
+over on the right in the inspector.[END]
+08:51 - 08:53[END]
+So because the inspector will show you properties of the[END]
+08:53 - 08:56[END]
+game object currently selected we can[END]
+08:56 - 08:58[END]
+go in to here and we want to add an Audio[END]
+08:58 - 09:00[END]
+Audio Source[END]
+09:01 - 09:04[END]
+We don't really want to hear the music[END]
+09:04 - 09:06[END]
+for this game playing[END]
+09:06 - 09:08[END]
+every time you press play in your game[END]
+09:08 - 09:11[END]
+but just to make sure that everyone's worked[END]
+09:11 - 09:13[END]
+we are going to do it once.[END]
+09:13 - 09:15[END]
+So to assign a audio clip[END]
+09:15 - 09:18[END]
+to the audio source we can use the circle select.[END]
+09:18 - 09:20[END]
+We're going to refer to circle select a lot throughout[END]
+09:20 - 09:24[END]
+the day, it's the small nipple-like icon[END]
+09:24 - 09:27[END]
+to the right of the audio clip, and what that will do is pop up[END]
+09:27 - 09:29[END]
+a context window which is going to allow you to[END]
+09:29 - 09:31[END]
+find the file you need.[END]
+09:31 - 09:33[END]
+The file you need is Background Music,[END]
+09:33 - 09:37[END]
+surprisingly enough, and simply closing that window[END]
+09:37 - 09:39[END]
+will assign it to that.[END]
+09:39 - 09:43[END]
+For everyone's sanity uncheck Play On Awake.[END]
+09:43 - 09:45[END]
+We also want the music to loop when we are finished[END]
+09:45 - 09:48[END]
+with the game, we do want it to loop[END]
+09:48 - 09:51[END]
+so uncheck Play On Awake and check Loop.[END]
+09:51 - 09:54[END]
+In the volume in the component there is a slider.[END]
+09:55 - 09:58[END]
+And we can just drag that down to about 0.1.[END]
+09:58 - 10:00[END]
+So that's just to balance it with the other sound effects[END]
+10:00 - 10:02[END]
+we have in the game, and then you can go ahead and[END]
+10:02 - 10:04[END]
+save your scene once more.[END]
+10:04 - 10:07[END]
+That's the end of phase one, setting up the environment.[END]
+10:07 - 10:10[END]
 The next thing we're going to do is look at our player character.
